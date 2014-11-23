@@ -12,5 +12,14 @@
     {% block content %}
 
     {% endblock %}
+
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'view' post.id %}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
