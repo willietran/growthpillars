@@ -1,7 +1,10 @@
+import json
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from growthpillarsapp.forms import NewUserCreationForm, PostForm
 from growthpillarsapp.models import Post, Vote
 
@@ -30,9 +33,11 @@ def register(request):
 
 # View to create a new Post
 @login_required
-def post(request):
+def post_submit(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
+        print 'post req received'
+        print form
         if form.is_valid():
             user = request.user
             title = form.cleaned_data['title']
@@ -46,13 +51,15 @@ def post(request):
             story = form.cleaned_data['story']
             Post.objects.create(user=user, title=title, place=place, idea=idea, link=link, labor=labor, audience=audience,
                             result=result, spend=spend, story=story)
-            return redirect('home')
+            return HttpResponse(status=200)
         else:
-            return redirect('home')
+            print 'invalid form'
+            return HttpResponse(status=400)
     else:
-        form = PostForm()
-    data = {"post_form":form}
-    return render(request, 'post.html', data)
+        return HttpResponse(status=405)
+
+def post(request):
+    return render(request, 'post.html')
 
 
 def view(request, post_id):
