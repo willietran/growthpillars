@@ -59,6 +59,9 @@ target/
 # local settings, should be a per-user file not checkd in
 local_settings.py
 
+# .swp file, for vim
+.*.swp
+
 # Wilson's gitignore file
 .DS_Store
 .project
