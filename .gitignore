@@ -56,6 +56,8 @@ target/
 # Idea folder
 .idea
 
+# local settings, should be a per-user file not checkd in
+local_settings.py
 
 # Wilson's gitignore file
 .DS_Store
