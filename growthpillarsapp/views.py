@@ -3,11 +3,13 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from growthpillarsapp.forms import NewUserCreationForm, PostForm
-from growthpillarsapp.models import Post
+from growthpillarsapp.models import Post, Vote
 
 
 def home(request):
-    return render(request, 'base.html')
+    posts = Post.objects.all()
+    data = {'posts':posts}
+    return render(request, 'base.html', data)
 
 
 # View to create a new account
@@ -54,8 +56,16 @@ def post(request):
 
 
 def view(request, post_id):
-
     post = Post.objects.get(id=post_id)
     post_data = {'post_data':post}
+
+    return render(request, 'view.html', post_data)
+
+
+def vote(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post_data = {'post_data':post}
+
+    Vote.objects.create(user=request.user, post=post_id)
 
     return render(request, 'view.html', post_data)

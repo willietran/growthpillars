@@ -16,7 +16,10 @@ urlpatterns = patterns('',
     url(r'^post/$', 'growthpillarsapp.views.post', name='post'),
 
     # View Post
-    url(r'^view/(?P<post_id>[0-9]+)/$', 'growthpillarsapp.views.view', name='view')
+    url(r'^view/(?P<post_id>[0-9]+)/$', 'growthpillarsapp.views.view', name='view'),
+
+    # Vote Post
+    url(r'^vote/(?P<post_id>[0-9]+)/$', 'growthpillarsapp.views.vote', name='vote'),
 
     # Blog
     # url(r'^blog/', include('blog.urls')),
