@@ -4,8 +4,16 @@
     <h1>Create Post</h1>
     <form method="post" action=".">
         {% csrf_token %}
-        {{ post_form.label }}
-        {{ post_form.as_p }}
+        <p><label for="id_title">Title:</label> <input id="id_title" maxlength="80" name="title" placeholder="Title" type="text" /></p>
+        <p><label for="id_place">Place:</label> <input id="id_place" maxlength="15" name="place" placeholder="Place" type="text" /></p>
+        <p><label for="id_idea">Idea:</label> <input id="id_idea" maxlength="140" name="idea" placeholder="Idea" type="text" /></p>
+        <p><label for="id_link">Link:</label> <input id="id_link" maxlength="140" name="link" placeholder="Link" type="text" /></p>
+        <p><label for="id_labor">Labor:</label> <input id="id_labor" name="labor" step="0.01" type="number" /></p>
+        <p><label for="id_audience">Audience:</label> <input id="id_audience" maxlength="20" name="audience" placeholder="Audience" type="text" /></p>
+        <p><label for="id_result">Result:</label> <input id="id_result" maxlength="20" name="result" placeholder="Result" type="text" /></p>
+        <p><label for="id_spend">Spend:</label> <input id="id_spend" name="spend" step="0.01" type="number" /></p>
+        <p><label for="id_story">Story:</label> <textarea cols="40" id="id_story" name="story" placeholder="Why it worked for you" rows="10">
+        </textarea></p>
 
         <input class="post-submit" type="submit" value="Submit Post">
     </form>
