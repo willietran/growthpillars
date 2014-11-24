@@ -1,0 +1,19 @@
+/******************************
+        Navigation Bar
+******************************/
+
+.submit-btn {
+    color: #fff;
+    background-color: #180b91;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 7px;
+    font-size: 1.3rem;
+    box-shadow: 0 0 3px #828282;
+}
+
+.nav-user-img {
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+}
