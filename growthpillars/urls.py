@@ -11,6 +11,12 @@ urlpatterns = patterns('',
     # User creation and administration
     url(r'^register/$', 'growthpillarsapp.views.register', name='register'),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+
+    # Password Reset
+    url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
+    url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
+    url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete', name='password_reset_complete'),
 
     # Create Post
     url(r'^post/$', 'growthpillarsapp.views.post', name='post'),
