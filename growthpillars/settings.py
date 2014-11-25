@@ -8,10 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -19,10 +16,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'et(a@y8=ba+6q5z3^gm#%n@be8gmvlc9tev$np%+d-qb)9025('
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+from growthpillars.env import check_is_local
+is_local = check_is_local()
 
-TEMPLATE_DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = is_local
+
+TEMPLATE_DEBUG = is_local
 
 
 # Application definition
@@ -84,23 +84,24 @@ USE_TZ = True
 AUTH_USER_MODEL = 'growthpillarsapp.User'
 LOGIN_REDIRECT_URL = 'home'
 
-# Static files (CSS, JavaScript, Images) using WhiteNoise middleware
+# Static files (CSS, JavaScript, Images) 
+#
+# Prod uses WhiteNoise middleware
 # https://warehouse.python.org/project/whitenoise/
+#
+# Local dev uses dj-static
+# https://github.com/kennethreitz/dj-static
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+if is_local:
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 static_abs_path = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_DIRS = (
     static_abs_path,
 )
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(static_abs_path, "media")

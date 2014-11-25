@@ -11,6 +11,15 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "growthpillars.settings")
 
 from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
 
-application = DjangoWhiteNoise(get_wsgi_application())
+application = get_wsgi_application()
+
+from growthpillars.env import check_is_local
+
+if check_is_local():
+    from dj_static import Cling, MediaCling
+    application = MediaCling(application)
+    application = Cling(application)
+else:
+    from whitenoise.django import DjangoWhiteNoise
+    application = DjangoWhiteNoise(application)
