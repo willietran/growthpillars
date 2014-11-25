@@ -81,19 +81,26 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 AUTH_USER_MODEL = 'growthpillarsapp.User'
 LOGIN_REDIRECT_URL = 'home'
 
+# Static files (CSS, JavaScript, Images) using WhiteNoise middleware
+# https://warehouse.python.org/project/whitenoise/
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+static_abs_path = os.path.join(PROJECT_ROOT, 'static')
+STATICFILES_DIRS = (
+    static_abs_path,
+)
 
 try:
     from local_settings import *
 except ImportError:
     pass
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "static", *MEDIA_URL.strip("/").split("/"))
+MEDIA_ROOT = os.path.join(static_abs_path, "media")
