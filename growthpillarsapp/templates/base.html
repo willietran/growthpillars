@@ -4,10 +4,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <!-- Bootstrap files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/base.js' %}"></script>
@@ -46,7 +47,7 @@
             <li><a href="{% url 'logout' %}">Sign Out</a></li>
           </ul>
         </li>
-        <li><a href="{% url 'post' %}"><button class="submit-btn">Post Your Strategy</button></a></li>
+        <li><a href="{% url 'post' %}" class="button-link"><button class="submit-btn">Post Your Strategy</button></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
     {% else %}
@@ -74,22 +75,33 @@
     {% endblock %}
 
 <div class="container feed-container">
-    {% for post in posts %}
-    <div class="row feed-row">
-        <div class="col-xs-10 post">
-            <div class="title-vote-info">
-                <a class="post-title" href="{% url 'view' post.id %}">{{ post.title }}</a>
-                <p class="post-growth">{{ post.result }}</p>
-            </div>
-        </div>
-        <div class="col-xs-2 pull-right">
-            <div class="image-comment">
-                <img class="post-user-image" src="{{ post.user.image.url }}" alt="Poster photo">
-                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-            </div>
-        </div>
+    <div class="day-today">
+        <time class="date" datetime="2014-11-25">
+          <h4 class="day-name"></h4><h4 class="day-name">TODAY</h4>
+        </time>
     </div>
+    {% for post in posts %}
+        <div class="row feed-row">
+            <div class="col-xs-10 post">
+                <div class="title-vote-info">
+                    <div class="upvote">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                        <span class="upvote">10</span>
+                    </div>
+                    <a class="post-title" href="{% url 'view' post.id %}">{{ post.title }}</a>
+                    <p class="post-growth">{{ post.result }} in {{ post.labor }} hours using {{ post.place }}</p>
+                </div>
+            </div>
+            <div class="col-xs-2 image-comment-wrapper">
+                <div class="image-comment">
+                    <img class="post-user-image" src="{{ post.user.image.url }}" alt="Poster photo">
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 </div>
+
+
 </body>
 </html>
