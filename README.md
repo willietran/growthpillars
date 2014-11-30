@@ -1,7 +1,6 @@
-growthpillars
-=============
+# growthpillars
 
-# Local Dev
+## Local Dev
 
 To do local development, the DATABASE_URL env var needs to be set. If there is
 a locally running postgres instance where the db name is 'foo',
