@@ -17,13 +17,7 @@ var posts = [
 ];
 
 var data = {
-  main: {
-    user: user,
-    posts: posts
-  },
-  view: {
-    post_data: posts[0]
-  }
+  posts: posts
 }
 
 module.exports = data;
