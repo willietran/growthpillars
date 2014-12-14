@@ -1,0 +1,129 @@
+/******************************
+          Variables
+******************************/
+
+@font-face {
+    font-family: 'open-sans';
+    src: url('fonts/OpenSans-Bold.ttf');
+}
+
+/******************************
+        Navigation Bar
+******************************/
+
+.navbar {
+    background-color: #ffffff;
+}
+
+.navbar-brand {
+    color: #180b91 !important;
+    padding: 15px 0 0 15px;
+    font-weight: 500;
+    height: 35px;
+}
+
+.support-header {
+    clear: left;
+    font-weight: lighter;
+    letter-spacing: .1rem;
+    font-size: 1.25rem;
+}
+
+.brand-header {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.caret {
+    margin-right: 15px;
+}
+
+.submit-btn {
+    color: #fff;
+    background-color: #180b91;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 7px;
+    font-size: 1.3rem;
+    box-shadow: 0 0 3px #828282;
+    text-align: right;
+}
+
+.nav>li>a {
+    padding-right: 0;
+}
+
+.nav-user-img {
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+}
+
+/******************************
+             Feed
+******************************/
+
+.day-name {
+    margin-bottom: 20px;
+}
+
+.post-user-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+
+.glyphicon-comment {
+    position: relative;
+    font-size: 20px;
+    margin-left: 7%;
+    top: 5px;
+}
+
+.title-vote-info {
+    padding: 10px 10px 0 0;
+}
+
+.feed-row:hover {
+    background-color: rgba(183, 169, 255, 0.22);
+    border-radius: 3px;
+    transition: .2s ease;
+}
+
+.image-comment-wrapper {
+    top: 15px;
+}
+
+.image-comment {
+    text-align: right;
+}
+
+.post-title {
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    font-size: 1.75rem;
+}
+
+.post-title:hover {
+    color: #180b91;
+    text-decoration-line: none;
+}
+
+.post-growth {
+    font-weight: lighter;
+    font-color: #eee;
+    letter-spacing: .05rem;
+    font-size: 1.5rem;
+}
+
+.upvote {
+    background-color: #eeeeee;
+    width: 32px;
+    padding-top: 2px;
+    margin-right: 10px;
+    float: left;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 0 rgba(83,69,64,0.3),0 1px 1px 0 rgba(0,0,0,0.2)
+}
