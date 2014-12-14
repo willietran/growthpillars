@@ -98,6 +98,7 @@ coverage
 
 # Dependency directory
 node_modules
+bower_components
 
 # Generated css
 public/styles/*.css
