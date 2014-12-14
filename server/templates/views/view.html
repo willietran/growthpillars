@@ -1,6 +1,3 @@
-{% extends 'base.html' %}
-
-{% block content %}
     <h1>View Post</h1>
     <h4>Place</h4>
     <p>{{ post_data.place }}</p>
@@ -18,5 +15,4 @@
     <p>{{ post_data.spend }}</p>
     <h4>Story</h4>
     <p>{{ post_data.story }}</p>
-    <a href="{% url 'vote' 1 %}">Upvote</a>
-{% endblock %}
+    <a href="/vote/{{ post_data.id }}">Upvote</a>

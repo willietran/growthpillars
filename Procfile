@@ -1,1 +1,1 @@
-web: gunicorn growthpillars.wsgi --log-file -
+web: node server.js

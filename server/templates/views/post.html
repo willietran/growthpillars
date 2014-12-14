@@ -1,11 +1,7 @@
-{% extends 'base.html' %}
-
-{% block content %}
 <h1>Create Post</h1>
 <form method="post" action=".">
-  {% csrf_token %}
   <p>
-    <label for="id_title">Title:</label> 
+    <label for="id_title">Title:</label>
     <input
       id="id_title"
       maxlength="80"
@@ -86,5 +82,3 @@
 
   <input class="post-submit" type="submit" value="Submit Post">
 </form>
-
-{% endblock %}
