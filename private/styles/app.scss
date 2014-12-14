@@ -1,0 +1,34 @@
+@import '../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss';
+@import '../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap-compass.scss';
+@import "node_modules/material-ui-sass/material-ui/main";
+
+/*VARIABLES*/
+
+
+
+/* ----------------------------------------
+    GLOBAL
+---------------------------------------- */
+::-moz-selection { background: #f58220; color: #fff; text-shadow: none; }
+::selection { background: #f58220; color: #fff; text-shadow: none; }
+
+
+/* ----------------------------------------
+    TYPOGRAPHY
+---------------------------------------- */
+
+
+/* ----------------------------------------
+    LAYOUT
+---------------------------------------- */
+html, body { height:100% }
+.wrapper{
+
+}
+
+/* ----------------------------------------
+    ANIMATIONS
+---------------------------------------- */
+a{ @include transition(.2s all ease-in);}
+
+
