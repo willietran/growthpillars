@@ -127,19 +127,6 @@ app.use('/js', browserify('./client/scripts', {
 	here before the catch-all route for index.html below.
 */
 
-// Redirect the user to Twitter for authentication.  When complete, Twitter
-// will redirect the user back to the application at
-//   /auth/twitter/callback
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-// Twitter will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { successRedirect: '/',
-                                     failureRedirect: '/login' }));
-
 app.get('/', function(req, res) {
   // This used to be '*'.
   //
@@ -156,15 +143,18 @@ app.get('/view/:post_id', function(req, res) {
   res.render('view.html', data.posts[0]);
 });
 
-app.post('/login', passport.authenticate('login', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+// Redirect the user to Twitter for authentication.  When complete, Twitter
+// will redirect the user back to the application at
+//   /auth/twitter/callback
+app.get('/auth/twitter', passport.authenticate('twitter'));
 
-app.post('/register', passport.authenticate('signup', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
+// Twitter will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { successRedirect: '/',
+                                     failureRedirect: '/login' }));
 
 app.all('/logout', function(req, res) {
   req.logout();
