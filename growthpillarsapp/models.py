@@ -29,7 +29,8 @@ class Comment(models.Model):
     content = models.CharField(max_length=1000)
 
     def __unicode__(self):
-        return "Comment on {} from {}".format(self.post.title, self.user.username)
+        return "Comment on {} from {}".format(self.post.title,
+                self.user.username)
 
 
 class Vote(models.Model):
@@ -37,4 +38,5 @@ class Vote(models.Model):
     post = models.ForeignKey(Post, related_name='vote_post')
 
     def __unicode__(self):
-        return "Upvote for {} from {}".format(self.post.title, self.user.username)
+        return "Upvote for {} from {}".format(self.post.title,
+                self.user.username)

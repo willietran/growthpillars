@@ -16,7 +16,8 @@ class NewUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "email", "password1", "password2", "image")
+        fields = ("username", "first_name", "email", "password1", "password2",
+                  "image")
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
@@ -41,19 +42,27 @@ class NewUserCreationForm(UserCreationForm):
 
 
 class PostForm(forms.Form):
-    title = forms.CharField(max_length=80,
-                            widget=forms.TextInput(attrs={'placeholder':'Title'}))
-    place = forms.CharField(max_length=15,
-                            widget=forms.TextInput(attrs={'placeholder':'Place'}))
-    idea = forms.CharField(max_length=140,
-                           widget=forms.TextInput(attrs={'placeholder':'Idea'}))
-    link = forms.CharField(max_length=140,
-                           widget=forms.TextInput(attrs={'placeholder':'Link'}))
+    title = forms.CharField(
+            max_length=80,
+            widget=forms.TextInput(attrs={'placeholder':'Title'}))
+    place = forms.CharField(
+            max_length=15,
+            widget=forms.TextInput(attrs={'placeholder':'Place'}))
+    idea = forms.CharField(
+            max_length=140,
+            widget=forms.TextInput(attrs={'placeholder':'Idea'}))
+    link = forms.CharField(
+            max_length=140,
+            widget=forms.TextInput(attrs={'placeholder':'Link'}))
     labor = forms.DecimalField(decimal_places=2, max_digits=10)
-    audience = forms.CharField(max_length=20,
-                               widget=forms.TextInput(attrs={'placeholder':'Audience'}))
-    result = forms.CharField(max_length=20,
-                             widget=forms.TextInput(attrs={'placeholder':'Result'}))
+    audience = forms.CharField(
+            max_length=20,
+            widget=forms.TextInput(attrs={'placeholder':'Audience'}))
+    result = forms.CharField(
+            max_length=20,
+            widget=forms.TextInput(attrs={'placeholder':'Result'}))
     spend = forms.DecimalField(decimal_places=2, max_digits=10)
-    story = forms.CharField(min_length=1,
-                            widget=forms.Textarea(attrs={'placeholder':'Why it worked for you'}))
+    story = forms.CharField(
+            min_length=1,
+            widget=forms.Textarea(
+                    attrs={'placeholder':'Why it worked for you'}))

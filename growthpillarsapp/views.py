@@ -49,8 +49,10 @@ def post_submit(request):
             result = form.cleaned_data['result']
             spend = form.cleaned_data['spend']
             story = form.cleaned_data['story']
-            Post.objects.create(user=user, title=title, place=place, idea=idea, link=link, labor=labor, audience=audience,
-                            result=result, spend=spend, story=story)
+            Post.objects.create(
+                    user=user, title=title, place=place, idea=idea, link=link,
+                    labor=labor, audience=audience, result=result, spend=spend,
+                    story=story)
             return HttpResponse(status=200)
         else:
             print 'invalid form'
