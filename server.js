@@ -8,8 +8,9 @@ var express = require('express')
   , nunjucks = require('nunjucks')
   , passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy
-  , backend = require('./backend')
+  , backend = require('./server/backend')
   , config = require('./client/config')
+;
 
 var server = function(err) {
   // User model from mongodb
@@ -56,12 +57,19 @@ var server = function(err) {
 
   // initialise express
   var app = express();
+  var isProd = app.get('env') === 'production';
+
+  // live reload, only on dev mode
+  if (isProd) {
+    app.use(require('connect-livereload')());
+  }
 
   // sass will automatically compile matching requests for .css files
   app.use(sass({
     src: __dirname + '/private',
     dest: __dirname + '/public',
-    debug: true,
+    debug: isProd ? false : true,
+    outputStyle: isProd ? 'compressed' : 'expanded',
   }));
   // public assets are served before any dynamic requests
   app.use(express.static('public'));

@@ -1,7 +1,8 @@
 var mongodb = require('mongodb')
   , mongoose = require('mongoose')
   , findOrCreate = require('mongoose-findorcreate')
-  , async = require('async');
+  , async = require('async')
+;
 
 var fake_posts = [
   {
