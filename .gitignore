@@ -82,3 +82,9 @@ Thumbs.db
 /.anvil
 staticfiles
 
+#From Yeoman
+node_modules/
+.tmp
+dist
+/src/scripts/main.js
+*.sublime-workspace
