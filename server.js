@@ -16,8 +16,9 @@ nunjucks.configure('server/templates/views', {
 
 // sass will automatically compile matching requests for .css files
 app.use(sass({
-  src: __dirname + '/public/styles',
-  dest: __dirname + '/public/styles',
+  src: __dirname + '/private',
+  dest: __dirname + '/public',
+  debug: true,
 }));
 // public assets are served before any dynamic requests
 app.use(express.static('public'));
