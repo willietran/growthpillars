@@ -55,15 +55,10 @@ var backend = {
   fake_posts: fake_posts,
 
   initialize: function (callback) {
-    var backend = this;
     async.waterfall([
-      this._connect,
-      this._userSchema,
-    ], function(err, result) {
-      backend.User = result;
-      if (err) { callback(err); }
-      else { callback(null); }
-    });
+      this._connect.bind(this),
+      this._initModels.bind(this),
+    ], callback);
   },
 
   _connect: function(callback) {
@@ -81,7 +76,7 @@ var backend = {
     });
   },
 
-  _userSchema :function(db, callback) {
+  _initUserModel: function(db, callback) {
     // user schema
     var userSchema = mongoose.Schema({
       twitter_id: { type: String, required: true, unique: true },
@@ -92,7 +87,51 @@ var backend = {
     userSchema.plugin(findOrCreate);
     var User = mongoose.model('User', userSchema);
     callback(null, User);
-  }
+  },
+
+  _initPostModel: function(db, callback) {
+    // post schema
+    var postSchema = mongoose.Schema({
+      user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        unique: true
+      },
+      title: { type: String, required: true, unique: true },
+      place: { type: String, required: true },
+      idea: { type: String, required: true },
+      link: { type: String, required: true },
+      labor: { type: Number, required: true },
+      audience: { type: String, required: true },
+      result: { type: String, required: true },
+      spend: { type: Number, required: true },
+    });
+
+    postSchema.plugin(findOrCreate);
+    var Post = mongoose.model('Post', postSchema);
+    callback(null, Post);
+  },
+
+  _initModels: function(db, callback) {
+    var backend = this;
+    async.parallel({
+      user: function(callback) {
+        backend._initUserModel(db, callback);
+      },
+      post: function(callback) {
+        backend._initPostModel(db, callback);
+      },
+    }, function(err, models) {
+      if (err) {
+        callback(err);
+      } else {
+        backend.user = models.user;
+        backend.post = models.post;
+        callback(null);
+      }
+    });
+  },
+
 };
 
 module.exports = backend;

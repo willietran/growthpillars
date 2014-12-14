@@ -12,7 +12,7 @@ var express = require('express')
 
 var server = function(err) {
   // User model from mongodb
-  var User = backend.User;
+  var User = backend.user;
 
   // Passport session setup.
   passport.serializeUser(function(user, done) {
@@ -129,5 +129,5 @@ var server = function(err) {
   var server = app.listen(process.env.PORT || 3000, function() {
     console.log('\nServer ready on port %d\n', server.address().port);
   });
-}
+};
 backend.initialize(server);
