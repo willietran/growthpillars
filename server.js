@@ -11,10 +11,8 @@ var express = require('express')
   , findOrCreate = require('mongoose-findorcreate')
   , passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy
-  , flash = require('connect-flash')
   , data = require('./data')
   , config = require('./client/config')
-  , SALT_WORK_FACTOR = 10;
 
 // set up mongodb connection
 uri = 'mongodb://localhost/test';
@@ -94,7 +92,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-  secret: 'derp',
+  secret: 'sUp3Rs3Cr3t!',
   resave: false,
   saveUninitialized: false,
 }));
@@ -102,7 +100,6 @@ app.use(session({
 app.use(passport.initialize());
 // use passport.session() middleware to support persistent login sesisons
 app.use(passport.session());
-app.use(flash());
 
 // use nunjucks to process view templates in express
 nunjucks.configure('server/templates/views', {
