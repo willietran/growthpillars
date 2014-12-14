@@ -1,7 +1,7 @@
 var express = require('express'),
 	browserify = require('browserify-middleware'),
 	reactify = require('reactify'),
-	less = require('less-middleware'),
+	sass = require('node-sass-middleware'),
 	nunjucks = require('nunjucks'),
   data = require('./data')
 	config = require('./client/config');
@@ -14,8 +14,11 @@ nunjucks.configure('server/templates/views', {
     express: app
 });
 
-// less will automatically compile matching requests for .css files
-app.use(less('public'));
+// sass will automatically compile matching requests for .css files
+app.use(sass({
+  src: __dirname + '/public/styles',
+  dest: __dirname + '/public/styles',
+}));
 // public assets are served before any dynamic requests
 app.use(express.static('public'));
 
