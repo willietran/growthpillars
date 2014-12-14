@@ -31,6 +31,17 @@ foreman run python manage.py migrate
 ```
 
 ## Front-end requirements ##
+If you don't have bower installed, run this first:
+
+```sh
+npm install -g bower
+```
+
+Otherwise, install the required packages:
+```sh
+bower install
+npm install
+```
 
 
 ## Local Dev ##
