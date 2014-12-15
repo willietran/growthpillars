@@ -85,7 +85,7 @@ var backend = {
     // user schema
     var userSchema = mongoose.Schema({
       twitter_id: { type: String, required: true, unique: true },
-      name: { type: String, required: true, unique: true },
+      name: { type: String, required: true },
       image_url: { type: String, required: false},
     });
 
