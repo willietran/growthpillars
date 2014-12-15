@@ -7,6 +7,11 @@
 /* ----------------------------------------
     GLOBAL
 ---------------------------------------- */
+$color-primary: #180b91;
+
+body {
+    font-family: "Roboto";
+}
 
 a{ @include transition(.2s all ease-in);}
 
@@ -19,19 +24,128 @@ a{ @include transition(.2s all ease-in);}
 /* ----------------------------------------
     LAYOUT
 ---------------------------------------- */
-html, body {
-    font-family: "Roboto";
-}
 .wrapper{
-
+    min-height: 100%;
 }
+
+
+// HEADER
+.navbar-brand{
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 15px 0 0 15px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.navbar-default .navbar-brand{ color: $color-primary; }
+.logo{
+    .subheader{
+        color: #333;
+        display:block
+    }
+}
+
+//Refeactoring in progress...
+.caret {
+    margin-right: 15px;
+}
+
+.submit-btn {
+    color: #fff;
+    background-color: $color-primary;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 7px;
+    font-size: 1.3rem;
+    box-shadow: 0 0 3px #828282;
+    text-align: right;
+}
+
+.nav>li>a {
+    padding-right: 0;
+}
+
+.nav-user-img {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+/******************************
+             Feed
+******************************/
+.posts-list{
+
+    .post-item{
+        @include transition(.2s all ease-in);
+        &:hover {
+            background-color: rgba(183, 169, 255, 0.22);
+        }
+    }
+
+    .post-content-container {
+        padding: 10px 10px 0 0;
+        .upvote {
+            background-color: #eeeeee;
+            width: 32px;
+            padding-top: 2px;
+            margin-right: 10px;
+            float: left;
+            text-align: center;
+            border-radius: 3px;
+            box-shadow:
+                0 1px 0 0 rgba(83,69,64,0.3),
+                0 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        .post-title {
+            text-decoration: none;
+            color: black;
+            font-weight: 400;
+            font-size: 1.75rem;
+            &:hover {
+                color: #180b91;
+                text-decoration-line: none;
+            }
+        }
+
+        .post-growth {
+            font-weight: lighter;
+            font-color: #eee;
+            letter-spacing: .05rem;
+            font-size: 1.5rem;
+        }
+    }
+
+
+    .post-user-container {
+        text-align: right;
+        padding:10px 10px 0 0;
+        .post-user-image {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+        }
+        .glyphicon-comment {
+            position: relative;
+            font-size: 20px;
+            margin-left: 7%;
+            top: 5px;
+        }
+    }
+}
+
+
 
 /* ----------------------------------------
     MEDIA QUERIES
 ---------------------------------------- */
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
+    .navbar-right{
+        margin-top: 15px;
+    }
 }
 
 /* Medium devices (desktops, 992px and up) */
