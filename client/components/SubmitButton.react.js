@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
-var Modal = ReactBootstrap.Modal;
+var ReactSubmitModal = require('./SubmitModal.react');
 var OverlayMixin = ReactBootstrap.OverlayMixin;
 
 var SubmitButton = React.createClass({
@@ -28,13 +28,9 @@ var SubmitButton = React.createClass({
     }
 
     return (
-      <Modal title="Create Post" onRequestHide={this._hideModal}>
-        <div className="modal-body">
-        </div>
-        <div className="modal-body">
-          <button onClick={this._hideModal}>Close</button>
-        </div>
-      </Modal>
+      <ReactSubmitModal
+        hideHandler={this._hideModal}
+      />
     );
   },
   _showModal: function() {
