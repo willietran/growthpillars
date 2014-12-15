@@ -1,0 +1,56 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap-compass";
+
+@import url(//fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+
+
+/* ----------------------------------------
+    GLOBAL
+---------------------------------------- */
+
+a{ @include transition(.2s all ease-in);}
+
+
+/* ----------------------------------------
+    TYPOGRAPHY
+---------------------------------------- */
+
+
+/* ----------------------------------------
+    LAYOUT
+---------------------------------------- */
+html, body {
+    font-family: "Roboto";
+}
+.wrapper{
+
+}
+
+/* ----------------------------------------
+    MEDIA QUERIES
+---------------------------------------- */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+/* Portrait Phone */
+@media (min-width: 480px) and (max-width: 767px) {
+
+
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {}
+@media (min-width: 992px) and (max-width: 1199px) {}
+@media (min-width: 1200px) {}
