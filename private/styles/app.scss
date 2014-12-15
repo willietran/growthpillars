@@ -1,16 +1,18 @@
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap-compass";
 
-@import url(//fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+@import url(//fonts.googleapis.com/css?family=Noto+Sans:400,700);
 
 
 /* ----------------------------------------
     GLOBAL
 ---------------------------------------- */
 $color-primary: #180b91;
+$font-primary: "Noto Sans";
 
 body {
-    font-family: "Roboto";
+    font-family: $font-primary;
+    font-weight: 400;
 }
 
 a{ @include transition(.2s all ease-in);}
