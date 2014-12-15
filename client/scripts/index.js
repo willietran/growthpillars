@@ -49,5 +49,10 @@ var routes = (
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-	React.render(<Handler/>, document.body);
+  // This replaces the contents of document.body with <Handler/>.
+  //
+  // I don't think we want to use react-router anyway, so we'll probably get
+  // rid of this soon. For now, though, this should get react working.
+  //
+	// React.render(<Handler/>, document.body);
 });
