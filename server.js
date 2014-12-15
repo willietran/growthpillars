@@ -103,10 +103,6 @@ var server = function(err) {
     res.render('base.html', { posts: backend.fake_posts, user: req.user});
   });
 
-  app.get('/post', function(req, res) {
-    res.render('post.html');
-  });
-
   app.get('/view/:post_id', function(req, res) {
     res.render('view.html', backend.fake_posts[0]);
   });
