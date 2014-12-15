@@ -11,6 +11,13 @@ Install grunt & bower.
 npm install -g grunt bower
 ```
 
+### Dependencies
+
+In the project root:
+```sh
+npm install && bower install
+```
+
 ## Running
 ```sh
 grunt serve
