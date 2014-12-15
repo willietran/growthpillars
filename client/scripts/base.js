@@ -35,8 +35,7 @@ $(document).ready(function() {
   });
 
   console.log("ready");
-  $('.post-submit')[0].onclick = (function(e){
-    console.log("onclick handler");
+  $('.post-submit').click(function(){
     e.preventDefault();
     var url = '/post_submit/';
     // Create a key value pairs to push into the model

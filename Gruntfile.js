@@ -76,6 +76,15 @@ var grunt = function(grunt) {
     'watch:express',
     'watch:jshint'
   ]);
+
+  //Default task needs to be defined, but for now, it does the same thing as grunt serve.
+  grunt.registerTask('default', [
+    'express:dev',
+    'open',
+    'watch:express',
+    'watch:jshint'
+  ]);
 };
+
 
 module.exports = grunt;
