@@ -47,7 +47,7 @@ var grunt = function(grunt) {
     },
     open: {
       dev: {
-        path: 'http://localhost:' + port.toString(),
+        path: 'http://127.0.0.1:' + port.toString(),
       },
     },
     express: {
