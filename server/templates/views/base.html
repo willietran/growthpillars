@@ -2,19 +2,10 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
-  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <!-- Bootstrap files -->
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-  />
-  <script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js">
-  </script>
-
-
-  <link rel="stylesheet" href="css/main.css"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Growth Pillars</title>
+  <link rel="stylesheet" href="styles/app.css"/>
 </head>
 <body>
 
@@ -52,9 +43,9 @@
         <li class="dropdown">
           <a
             href="#"
-            class="dropdown-toggle" 
-            data-toggle="dropdown" 
-            role="button" 
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
             aria-expanded="false"
           >
             <img class="nav-user-img" src="{{ user.image_url }}"/>
@@ -124,11 +115,14 @@
       </div>
     </div>
   {% endfor %}
-  <script src="js/common.js"></script>
-  <script src="js/base.js"></script>
-  <script src="js/index.js"></script>
 </div>
 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js">
+</script>
+<script src="js/base.js"></script>
+<script src="js/common.js"></script>
 
 </body>
 </html>
