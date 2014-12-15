@@ -74,7 +74,8 @@ var grunt = function(grunt) {
         options: {
           transform: ['reactify'],
           require: [
-            'react'
+            'react',
+            'react-bootstrap'
           ],
           watch: true,
         },
