@@ -103,3 +103,6 @@ bower_components
 # Generated css
 public/styles/*.css
 .sass-cache
+
+# Generated js
+public/js/*.js

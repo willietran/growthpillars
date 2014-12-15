@@ -2,14 +2,12 @@ var express = require('express')
   , session = require('express-session')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
-  , browserify = require('browserify-middleware')
   , reactify = require('reactify')
   , sass = require('node-sass-middleware')
   , nunjucks = require('nunjucks')
   , passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy
   , backend = require('./server/backend')
-  , config = require('./client/config')
 ;
 
 var server = function(err) {
@@ -91,19 +89,6 @@ var server = function(err) {
   nunjucks.configure('server/templates/views', {
     express: app
   });
-
-  // common packages are precompiled on server start and cached
-  app.get('/js/' + config.common.bundle, browserify(config.common.packages, {
-    cache: true,
-    precompile: true
-  }));
-
-  // any file in /client/scripts will automatically be browserified,
-  // excluding common packages.
-  app.use('/js', browserify('./client/scripts', {
-    external: config.common.packages,
-    transform: ['reactify']
-  }));
 
   /*
     set up any additional server routes (api endpoints, static pages, etc.)

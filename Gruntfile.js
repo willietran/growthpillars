@@ -64,6 +64,22 @@ var grunt = function(grunt) {
         node_env: 'production',
       },
     },
+    browserify: {
+      dev: {
+        files: {
+          'public/js/index.js': [
+            'client/scripts/index.js'
+          ],
+        },
+        options: {
+          transform: ['reactify'],
+          require: [
+            'react'
+          ],
+          watch: true,
+        },
+      }
+    },
   });
 
   grunt.event.on('watch', function(action, filepath) {
@@ -71,6 +87,7 @@ var grunt = function(grunt) {
   });
 
   grunt.registerTask('serve', [
+    'browserify:dev',
     'express:dev',
     'open',
     'watch:express',
