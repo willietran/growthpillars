@@ -58,7 +58,8 @@ var server = function(err) {
   var isProd = app.get('env') === 'production';
 
   // live reload, only on dev mode
-  if (isProd) {
+  if (!isProd) {
+    console.log('Using live reload');
     app.use(require('connect-livereload')());
   }
 
