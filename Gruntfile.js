@@ -15,6 +15,12 @@ var grunt = function(grunt) {
       options: {
         livereload: true,
       },
+      configFiles: {
+        files: [ 'Gruntfile.js', 'config/*.js' ],
+        options: {
+          reload: true
+        }
+      },
       scripts: {
         files: serverJSFiles,
         tasks: 'jshint',
@@ -35,6 +41,14 @@ var grunt = function(grunt) {
         options: {
           spawn: false,
         },
+      },
+      browserify: {
+        files: ['client/scripts/index.js'],
+        tasks: [],
+      },
+      concat: {
+        files: ['public/js/client.js'],
+        tasks: ['concat'],
       },
     },
     jshint: {
@@ -65,21 +79,29 @@ var grunt = function(grunt) {
       },
     },
     browserify: {
-      dev: {
-        files: {
-          'public/js/index.js': [
-            'client/scripts/index.js'
-          ],
-        },
+      vendor: {
+        src: [],
+        dest: 'public/js/vendor.js',
         options: {
           transform: ['reactify'],
           require: [
             'react',
             'react-bootstrap'
           ],
+        },
+      },
+      client: {
+        src: ['client/scripts/index.js'],
+        dest: 'public/js/client.js',
+        options: {
+          transform: ['reactify'],
+          external: ['react', 'react-bootstrap'],
           watch: true,
         },
-      }
+      },
+    },
+    concat: {
+      'public/js/index.js': ['public/js/vendor.js', 'public/js/client.js']
     },
   });
 
@@ -88,20 +110,15 @@ var grunt = function(grunt) {
   });
 
   grunt.registerTask('serve', [
-    'browserify:dev',
+    'browserify:vendor',
+    'browserify:client',
     'express:dev',
     'open',
-    'watch:express',
-    'watch:jshint'
+    'watch',
   ]);
 
   //Default task needs to be defined, but for now, it does the same thing as grunt serve.
-  grunt.registerTask('default', [
-    'express:dev',
-    'open',
-    'watch:express',
-    'watch:jshint'
-  ]);
+  grunt.registerTask('default', ['serve']);
 };
 
 
