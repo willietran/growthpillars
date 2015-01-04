@@ -12,7 +12,7 @@ var express = require('express')
 
 var server = function(err) {
   // User model from mongodb
-  var User = backend.User;
+  var User = backend.user;
 
   // Passport session setup.
   passport.serializeUser(function(user, done) {
@@ -103,6 +103,24 @@ var server = function(err) {
     res.render('base.html', { posts: backend.fake_posts, user: req.user});
   });
 
+  app.post('/post', function(req, res) {
+    if (req.user) {
+      var formData = req.body;
+      formData['user'] = req.user;
+      backend.addPost(formData, function (err, result) {
+        if (err) {
+          res.status(500).send({error: err});
+        } else {
+          res.send(result);
+        }
+      });
+    } else {
+      // Got create post request but user is not logged in. This shouldn't be
+      // possible from the web UI, so it must be a manually crafted request.
+      res.sendStatus(403); // Forbidden
+    }
+  });
+
   app.get('/view/:post_id', function(req, res) {
     res.render('view.html', backend.fake_posts[0]);
   });
@@ -129,5 +147,5 @@ var server = function(err) {
   var server = app.listen(process.env.PORT || 3000, function() {
     console.log('\nServer ready on port %d\n', server.address().port);
   });
-}
+};
 backend.initialize(server);
