@@ -1,8 +1,29 @@
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
+var reqwest = require('reqwest');
+var serialize = require('form-serialize');
 var Modal = ReactBootstrap.Modal;
+var Glyphicon = ReactBootstrap.Glyphicon;
+var Button = ReactBootstrap.Button;
+
+// req states:
+// -1: failure
+//  0: not started
+//  1: in flight
+//  2: success
+var reqState = {
+  'FAILURE': -1,
+  'NOT_STARTED': 0,
+  'IN_FLIGHT': 1,
+  'SUCCESS': 2,
+};
 
 var SubmitModal = React.createClass({
+  getInitialState: function() {
+    return {
+      reqState: reqState.NOT_STARTED,
+    };
+  },
   render: function() {
     var fields = [
       { name: 'Title', limit: 80 },
@@ -45,34 +66,75 @@ var SubmitModal = React.createClass({
       )
     );
 
+    var buttonHandler = null;
+    if (this.state.reqState === reqState.NOT_STARTED) {
+      var buttonLabel = 'Post';
+      var buttonStyle = 'primary';
+      buttonHandler = this._submitPost;
+    } else if (this.state.reqState === reqState.IN_FLIGHT) {
+      var buttonLabel = 'Posting...';
+      var buttonStyle = 'primary';
+    } else if (this.state.reqState === reqState.SUCCESS) {
+      var buttonLabel = (
+        <Glyphicon glyph="ok-circle" />
+      );
+      var buttonStyle = 'success';
+      window.setTimeout(this.props.hideHandler, 1000);
+    } else { // if (this.state.reqState === reqState.FAILURE)
+      var buttonLabel = (
+        <Glyphicon glyph="remove-circle" />
+      );
+      var buttonStyle = 'danger';
+    }
     return (
       <Modal title="Create Post" onRequestHide={this.props.hideHandler}>
         <div className="modal-body">
-          <form role="form">
+          <form role="form" ref="form">
             {fields}
-            <button
-              className="btn btn-primary"
-              onClick={this._submitPost}
-            >
-              Post
-            </button>
+            <Button
+              disabled={buttonHandler === null}
+              bsStyle={buttonStyle}
+              onClick={buttonHandler} >
+              {buttonLabel}
+            </Button>
           </form>
         </div>
       </Modal>
     );
   },
-  _createField: function(name, input) {
-    var id = input.props.id;
-    return (
-      <div className="form-group">
-        <label for={id}>{name}:</label>
-        {input}
-      </div>
-    );
+  _createField: (function() {
+    var key = 0;
+    return function(name, input) {
+      var id = input.props.id;
+      return (
+        <div className="form-group" key={key++}>
+          <label htmlFor={id}>{name}:</label>
+          {input}
+        </div>
+      );
+    };
+  })(),
+  _submitPost: function(e) {
+    var form = this.refs.form.getDOMNode();
+    data = serialize(form, {hash: true});
+    this.setState({reqInFlight: true})
+    reqwest({
+      url: '/post',
+      method: 'post',
+      data: data,
+      success: function (resp) {
+        this.setState({
+          reqState: reqState.SUCCESS,
+        });
+      }.bind(this),
+      error: function(err) {
+        this.setState({
+          reqState: reqState.FAILURE,
+        });
+      }.bind(this),
+    });
+    e.stopPropagation();
   },
-  _submitPost: function() {
-    // Do an XHR here
-  }
 });
 
 module.exports = SubmitModal;

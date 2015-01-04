@@ -54,6 +54,16 @@ var fake_posts = [
 var backend = {
   fake_posts: fake_posts,
 
+  addPost: (function () {
+    var nextPostID = 8; // hack, will go away when actually using mongo
+    return function(postData, callback) {
+      var postID = nextPostID++;
+      postData['id'] = postID.toString();
+      fake_posts.push(postData);
+      callback(null, {id: postID});
+    };
+  })(),
+
   initialize: function (callback) {
     async.waterfall([
       this._connect.bind(this),
