@@ -8,7 +8,7 @@ Install npm. [Homebrew](http://brew.sh/) is probably the easiest way.
 
 Install grunt & bower.
 ```sh
-npm install -g grunt bower
+npm install -g grunt-cli bower
 ```
 
 ### Dependencies
@@ -20,5 +20,5 @@ npm install && bower install
 
 ## Running
 ```sh
-grunt serve
+grunt
 ```
