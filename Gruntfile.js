@@ -112,6 +112,7 @@ var grunt = function(grunt) {
   grunt.registerTask('serve', [
     'browserify:vendor',
     'browserify:client',
+    'concat',
     'express:dev',
     'open',
     'watch',
