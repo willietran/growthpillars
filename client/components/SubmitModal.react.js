@@ -116,7 +116,7 @@ var SubmitModal = React.createClass({
   })(),
   _submitPost: function(e) {
     var form = this.refs.form.getDOMNode();
-    data = serialize(form, {hash: true});
+    var data = serialize(form, {hash: true});
     this.setState({reqInFlight: true})
     reqwest({
       url: '/post',

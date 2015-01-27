@@ -106,3 +106,4 @@ public/styles/*.css
 
 # Generated js
 public/js/*.js
+public/js/*.js.map
