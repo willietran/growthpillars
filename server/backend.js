@@ -58,7 +58,7 @@ var backend = {
     var nextPostID = 8; // hack, will go away when actually using mongo
     return function(postData, callback) {
       var postID = nextPostID++;
-      postData['id'] = postID.toString();
+      postData.id = postID.toString();
       fake_posts.push(postData);
       callback(null, {id: postID});
     };

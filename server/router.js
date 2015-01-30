@@ -64,7 +64,7 @@ var server = function(err) {
   router.post('/post', function(req, res) {
     if (req.user) {
       var formData = req.body;
-      formData['user'] = req.user;
+      formData.user = req.user;
       backend.addPost(formData, function (err, result) {
         if (err) {
           res.status(500).send({error: err});
