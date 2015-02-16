@@ -16,12 +16,6 @@ var server = function(err) {
 
   var isProd = router.get('env') === 'production';
 
-  // live reload, only on dev mode
-  if (!isProd) {
-    console.log('Using live reload');
-    router.use(require('connect-livereload')());
-  }
-
   // sass will automatically compile matching requests for .css files
   router.use(sass({
     src: __dirname + '/private',

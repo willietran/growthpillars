@@ -6,9 +6,9 @@
 
 Install npm. [Homebrew](http://brew.sh/) is probably the easiest way.
 
-Install grunt & bower.
+Install gulp & bower.
 ```sh
-npm install -g grunt-cli bower
+npm install -g gulp bower
 ```
 
 ### Dependencies
@@ -20,5 +20,5 @@ npm install && bower install
 
 ## Running
 ```sh
-grunt
+gulp
 ```
