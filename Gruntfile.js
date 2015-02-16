@@ -2,8 +2,9 @@ var grunt = function(grunt) {
   // load all grunt tasks matching the `grunt-*` pattern
   require('load-grunt-tasks')(grunt);
 
+  var mainFile = 'app.js';
   var serverJSFiles = [
-    'server.js',
+    mainFile,
     'server/*.js'
   ];
 
@@ -66,7 +67,7 @@ var grunt = function(grunt) {
     },
     express: {
       options: {
-        script: './server.js',
+        script: './' + mainFile,
         livereload: true,
         port: 3000,
         output: 'Server ready on port \\d+'
