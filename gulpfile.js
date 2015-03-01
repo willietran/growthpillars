@@ -6,6 +6,7 @@ var buffer = require('vinyl-buffer');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var open = require('gulp-open');
+var sass = require('gulp-sass');
 var setupApp = require('./server/app.js');
 
 // Browserify
@@ -45,6 +46,13 @@ function notifyLiveReload(event) {
   });
 }
 
+// Sass
+gulp.task('sass', function () {
+  gulp.src(__dirname + '/private/styles/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest(__dirname + '/public/styles'));
+});
+
 // Express
 gulp.task('server', function(taskCompletionCallback) {
   setupApp(function configCallback(app, configCompletionCallback) {
@@ -66,7 +74,7 @@ gulp.task('watch', function() {
 });
 
 // Default task
-gulp.task('default', ['jsclient', 'server'], function() {
+gulp.task('default', ['sass', 'jsclient', 'server'], function() {
   gutil.log('Opening page');
   gulp.src(__filename)
     .pipe(open('', {
