@@ -7,13 +7,15 @@ var watchify = require('watchify');
 var browserify = require('browserify');
 var open = require('gulp-open');
 var sass = require('gulp-sass');
+var del = require('del');
+var path = require('path');
 var setupApp = require('./server/app.js');
-var path = require('path')
 
 // Paths
 var sassGlob = './private/styles/*.scss';
 var cssRoot = './public/styles';
 var cssGlob = path.join(cssRoot, '*.css');
+var jsDestRoot = './public/js'
 
 // standard LiveReload port
 var liveReloadPort = 35729;
@@ -32,7 +34,7 @@ function bundle() {
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
       .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/js'));
+    .pipe(gulp.dest(jsDestRoot));
 }
 gulp.task('jsclient', bundle);
 bundler.on('update', bundle);
@@ -94,4 +96,12 @@ gulp.task('default', [
     .pipe(open('', {
       url: 'http://127.0.0.1:3000'
     }));
+});
+
+// Clean - delete all generated files
+gulp.task('clean', function(callback) {
+  del([
+    path.join(cssRoot, '**'),
+    path.join(jsDestRoot, '**')
+  ], callback);
 });
