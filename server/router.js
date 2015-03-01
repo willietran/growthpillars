@@ -2,7 +2,6 @@ var express = require('express')
   , session = require('express-session')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
-  , sass = require('node-sass-middleware')
   , nunjucks = require('nunjucks')
   , AuthModule = require('./auth')
   , backend = require('./backend')
@@ -16,13 +15,6 @@ var server = function(err) {
 
   var isProd = router.get('env') === 'production';
 
-  // sass will automatically compile matching requests for .css files
-  router.use(sass({
-    src: __dirname + '/private',
-    dest: __dirname + '/public',
-    debug: isProd ? false : true,
-    outputStyle: isProd ? 'compressed' : 'expanded',
-  }));
   // public assets are served before any dynamic requests
   router.use(express.static('public'));
 

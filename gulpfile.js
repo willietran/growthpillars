@@ -6,7 +6,17 @@ var buffer = require('vinyl-buffer');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var open = require('gulp-open');
+var sass = require('gulp-sass');
 var setupApp = require('./server/app.js');
+var path = require('path')
+
+// Paths
+var sassGlob = './private/styles/*.scss';
+var cssRoot = './public/styles';
+var cssGlob = path.join(cssRoot, '*.css');
+
+// standard LiveReload port
+var liveReloadPort = 35729;
 
 // Browserify
 // TODO(ryanrhee): use webpack instead of browserify to get react-hot-loader
@@ -30,13 +40,12 @@ bundler.on('update', bundle);
 // Live Reload
 var tinylr;
 gulp.task('livereload', function(callback) {
-  // standard LiveReload port
-  var port = 35729;
-  tinylr = require('tiny-lr')().listen(port, callback);
+  tinylr = require('tiny-lr')();
+  tinylr.listen(liveReloadPort, callback);
 });
 
 function notifyLiveReload(event) {
-  var fileName = require('path').relative(__dirname, event.path);
+  var fileName = path.relative(__dirname, event.path);
 
   tinylr.changed({
     body: {
@@ -45,12 +54,19 @@ function notifyLiveReload(event) {
   });
 }
 
+// Sass
+gulp.task('sass', function () {
+  gulp.src(sassGlob)
+    .pipe(sass())
+    .pipe(gulp.dest(cssRoot));
+});
+
 // Express
 gulp.task('server', function(taskCompletionCallback) {
   setupApp(function configCallback(app, configCompletionCallback) {
     // live reload, only on dev mode
     console.log('Using live reload');
-    app.use(require('connect-livereload')());
+    app.use(require('connect-livereload')({port: liveReloadPort}));
     configCompletionCallback();
   }, function startCallback(app) {
     var server = app.listen(process.env.PORT || 3000, function() {
@@ -61,12 +77,18 @@ gulp.task('server', function(taskCompletionCallback) {
 });
 
 // Watch
-gulp.task('watch', function() {
-  // TODO(ryanrhee): Watch for static resource changes
+gulp.task('watch', ['livereload'], function() {
+  gulp.watch(sassGlob, ['sass']);
+  gulp.watch(cssGlob, notifyLiveReload);
 });
 
 // Default task
-gulp.task('default', ['jsclient', 'server'], function() {
+gulp.task('default', [
+  'sass',
+  'jsclient',
+  'server',
+  'watch'
+], function() {
   gutil.log('Opening page');
   gulp.src(__filename)
     .pipe(open('', {
