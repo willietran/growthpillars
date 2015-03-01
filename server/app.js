@@ -16,8 +16,8 @@ var express = require('express')
  *   paramter, and a completion function as the second paramter.
  *
  * @param function startCallback Optional callback function used to be notified
- *   of when the server is ready. Takes in the created server instance as the
- *   first paramter, and a completion function as the second parameter.
+ *   of when the server is ready. Takes in the express app instance as the first
+ *   paramter, and a completion function as the second parameter.
  */
 function setupApp(configCallback, startCallback) {
   routerAsync(function(router) {

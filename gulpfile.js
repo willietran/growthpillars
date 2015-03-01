@@ -46,15 +46,16 @@ function notifyLiveReload(event) {
 }
 
 // Express
-gulp.task('server', function(callback) {
-  setupApp(function(app, callback) {
+gulp.task('server', function(taskCompletionCallback) {
+  setupApp(function configCallback(app, configCompletionCallback) {
     // live reload, only on dev mode
     console.log('Using live reload');
     app.use(require('connect-livereload')());
-    callback();
-  }, function(app) {
+    configCompletionCallback();
+  }, function startCallback(app) {
     var server = app.listen(process.env.PORT || 3000, function() {
       console.log('\nServer ready on port %d\n', server.address().port);
+      taskCompletionCallback();
     });
   });
 });
@@ -67,7 +68,7 @@ gulp.task('watch', function() {
 // Default task
 gulp.task('default', ['jsclient', 'server'], function() {
   gutil.log('Opening page');
-  gulp.src('index.js')
+  gulp.src(__filename)
     .pipe(open('', {
       url: 'http://127.0.0.1:3000'
     }));
