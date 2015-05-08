@@ -5,6 +5,8 @@
 var React = require('react');
 var nunjucks = require('nunjucks');
 
+var NavBar = require('./NavBar.react');
+
 var Main = React.createClass({
   propTypes: {
     posts: React.PropTypes.array,
@@ -26,9 +28,12 @@ var Main = React.createClass({
           <title>Growth Pillars</title>
           <link rel="stylesheet" href="styles/app.css"/>
         </head>
-        <body
-          dangerouslySetInnerHTML={innerHTML}
-        />
+        <body>
+          <NavBar user={this.props.user} />
+          <div
+            dangerouslySetInnerHTML={innerHTML}
+          />
+        </body>
       </html>
     );
   }
