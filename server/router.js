@@ -6,18 +6,14 @@ var express = require('express')
   , session = require('express-session')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
-  , nunjucks = require('nunjucks')
   , React = require('react')
   , AuthModule = require('./auth')
   , backend = require('./backend')
   , Post = require('../client/components/Post.react')
+  , Main = require('../client/components/Main.react')
 ;
 
 var server = function(err) {
-
-  // use nunjucks to process view templates
-  nunjucks.configure('server/templates/views');
-
   var router = express.Router();
 
   // User model from mongodb
@@ -51,14 +47,13 @@ var server = function(err) {
 
   router.get('/', function(req, res) {
     // This used to be '*'.
-    //
-    // this route will respond to all requests with the contents of your index
-    // template. Doing this allows react-router to render the view in the app.
-    var html = nunjucks.render(
-      'base.html',
-      { posts: backend.fake_posts, user: req.user }
+    var html = React.renderToStaticMarkup(
+      <Main
+        posts={backend.fake_posts}
+        user={req.user}
+      />
     );
-    res.end(html);
+    res.end('<!DOCTYPE html>\n' + html);
   });
 
   router.post('/post', function(req, res) {
