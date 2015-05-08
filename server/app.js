@@ -3,7 +3,6 @@ require('babel/register')({
   stage: 1,
 });
 var express = require('express')
-  , nunjucks = require('nunjucks')
   , routerAsync = require('./router')
 ;
 
@@ -27,11 +26,6 @@ function setupApp(configCallback, startCallback) {
   routerAsync(function(router) {
     // initialize express
     var app = express();
-
-    // use nunjucks to process view templates in express
-    nunjucks.configure('server/templates/views', {
-      express: app
-    });
 
     // Set default config callback that does nothing and continues
     if (!configCallback) {
