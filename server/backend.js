@@ -15,6 +15,7 @@ var fake_posts = [
     result: 'derp',
     spend: 'everything',
     story: 'i fuck bitches and get money',
+    user: null,
   },
   {
     id: '5',
@@ -26,6 +27,7 @@ var fake_posts = [
     result: 'Bitches want me more',
     spend: 'Free',
     story: 'i fuck bitches and get money',
+    user: null,
   },
   {
     id: '6',
@@ -37,6 +39,7 @@ var fake_posts = [
     result: 'derp',
     spend: 'everything',
     story: 'i fuck bitches and get money',
+    user: null,
   },
   {
     id: '7',
@@ -48,6 +51,7 @@ var fake_posts = [
     result: 'Bitches want me more',
     spend: 'Free',
     story: 'i fuck bitches and get money',
+    user: null,
   }
 ];
 

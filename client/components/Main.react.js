@@ -3,9 +3,9 @@
  */
 
 var React = require('react');
-var nunjucks = require('nunjucks');
 
 var NavBar = require('./NavBar.react');
+var PostList = require('./PostList.react');
 
 var Main = React.createClass({
   propTypes: {
@@ -14,11 +14,6 @@ var Main = React.createClass({
   },
 
   render: function() {
-    var bodyMarkup = nunjucks.render(
-      'server/templates/views/base.html',
-      { posts: this.props.posts, user: this.props.user }
-    );
-    var innerHTML = { __html: bodyMarkup };
     return (
       <html>
         <head lang="en">
@@ -30,9 +25,7 @@ var Main = React.createClass({
         </head>
         <body>
           <NavBar user={this.props.user} />
-          <div
-            dangerouslySetInnerHTML={innerHTML}
-          />
+          <PostList posts={this.props.posts} />
         </body>
       </html>
     );
