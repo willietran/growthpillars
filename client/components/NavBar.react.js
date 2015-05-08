@@ -4,6 +4,8 @@
 
 var React = require('react');
 
+var SubmitButton = require('./SubmitButton.react');
+
 var NavBar = React.createClass({
   propTypes: {
     user: React.PropTypes.object,
@@ -30,7 +32,8 @@ var NavBar = React.createClass({
                 <li><a href="/auth/logout">{'Sign Out'}</a></li>
               </ul>
             </li>
-            <li id="submit-post">
+            <li>
+              <SubmitButton/>
             </li>
           </ul>
         </div>

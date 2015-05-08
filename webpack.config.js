@@ -1,13 +1,13 @@
 var path = require('path');
 module.exports = {
-  entry: './client/scripts/index.react.js',
+  entry: './client/scripts/browser.js',
   output: {
-    filename: 'index.js',
+    filename: 'browser.js',
     path: path.join(__dirname, 'public/js')
   },
   module: {
     loaders: [{
-      test: /\.react.js$/,
+      test: /\.js$/,
       loader: 'jsx-loader?insertPragma=React.DOM&harmony'
     }]
   }

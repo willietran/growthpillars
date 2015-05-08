@@ -15,8 +15,7 @@ var SubmitButton = React.createClass({
       <a className="button-link">
         <button
           className="submit-btn"
-          onClick={this._showModal}
-        >
+          onClick={this._showModal} >
           {'Post Your Strategy'}
         </button>
       </a>

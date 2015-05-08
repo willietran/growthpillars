@@ -9,6 +9,8 @@ var del = require('del');
 var path = require('path');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
+var proxy = require('proxy-middleware');
+var url = require('url');
 var setupApp = require('./server/app.js');
 
 // Paths
@@ -17,30 +19,34 @@ var cssRoot = './public/styles';
 var cssGlob = path.join(cssRoot, '*.css');
 var jsDestRoot = './public/js'
 
-// standard LiveReload port
-var liveReloadPort = 35729;
+// Ports & Hostnames
+var expressPort = process.env.PORT || 3000;
+var webpackPort = 9090;
+var liveReloadPort = 35729; // standard LR port
+var hostname = '127.0.0.1';
 
 // Webpack
 gulp.task('jsclient', function(callback) {
-  var hostname = 'localhost';
-  var port = '9090';
   var config = Object.create(require('./webpack.config.js'))
+  config.output.publicPath =
+    'http://'+hostname+':'+webpackPort.toString() + '/js/';
+
   config.debug = true;
-  config.output.publicPath = 'http://'+hostname+':'+port+'/';
 
   var devServer = new WebpackDevServer(webpack(config), {
     // server & middleware options
+    publicPath: '/js/',
     stats: {
       colors: true
-    }
+    },
   });
-  devServer.listen(8080, '127.0.0.1', function(err) {
+  devServer.listen(webpackPort, hostname, function(err) {
     if (err) throw new gutil.PluginError('webpack-dev-server', err);
 
     // Server listening
     gutil.log(
       '[webpack-dev-server]',
-      'http://localhost:9090/webpack-dev-server/index.html'
+      config.output.publicPath + '/js/browser.js'
     );
 
     callback();
@@ -76,10 +82,13 @@ gulp.task('server', function(taskCompletionCallback) {
   setupApp(function configCallback(app, configCompletionCallback) {
     // live reload, only on dev mode
     console.log('Using live reload');
-    app.use(require('connect-livereload')({port: liveReloadPort}));
+    //app.use(require('connect-livereload')({port: liveReloadPort}));
+    // proxy js assets to webpack devserver
+    var webpackURL = url.parse('http://'+hostname+':'+webpackPort.toString()+'/js/');
+    app.use('/js', proxy(webpackURL));
     configCompletionCallback();
   }, function startCallback(app) {
-    var server = app.listen(process.env.PORT || 3000, function() {
+    var server = app.listen(expressPort, function() {
       console.log('\nServer ready on port %d\n', server.address().port);
       taskCompletionCallback();
     });
@@ -102,7 +111,7 @@ gulp.task('default', [
   gutil.log('Opening page');
   gulp.src(__filename)
     .pipe(open('', {
-      url: 'http://127.0.0.1:3000'
+      url: 'http://'+hostname+':'+expressPort.toString()
     }));
 });
 

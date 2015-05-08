@@ -11,6 +11,7 @@ var express = require('express')
   , backend = require('./backend')
   , Post = require('../client/components/Post.react')
   , Main = require('../client/components/Main.react')
+  , StaticContainer = require('../client/components/StaticContainer.react')
 ;
 
 var server = function(err) {
@@ -45,13 +46,24 @@ var server = function(err) {
     here before the catch-all route for index.html below.
   */
 
+  // This used to be '*'.
   router.get('/', function(req, res) {
-    // This used to be '*'.
+    var props = {
+      posts: backend.fake_posts,
+      user: req.user,
+    };
+    var encodedProps = JSON.stringify(props);
+    var mainAppHTML = React.renderToString(
+      <Main {...props} />
+    );
     var html = React.renderToStaticMarkup(
-      <Main
-        posts={backend.fake_posts}
-        user={req.user}
-      />
+      <StaticContainer>
+        <div
+          id="contents"
+          dangerouslySetInnerHTML={{__html: mainAppHTML}}
+        />
+        <input type="hidden" id="initial-props" value={encodedProps} />
+      </StaticContainer>
     );
     res.end('<!DOCTYPE html>\n' + html);
   });

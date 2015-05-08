@@ -15,19 +15,10 @@ var Main = React.createClass({
 
   render: function() {
     return (
-      <html>
-        <head lang="en">
-          <meta charset="UTF-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>Growth Pillars</title>
-          <link rel="stylesheet" href="styles/app.css"/>
-        </head>
-        <body>
-          <NavBar user={this.props.user} />
-          <PostList posts={this.props.posts} />
-        </body>
-      </html>
+      <div>
+        <NavBar user={this.props.user} />
+        <PostList posts={this.props.posts} />
+      </div>
     );
   }
 });

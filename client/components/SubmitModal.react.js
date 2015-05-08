@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
-var reqwest = require('reqwest');
 var serialize = require('form-serialize');
 var Modal = ReactBootstrap.Modal;
 var Glyphicon = ReactBootstrap.Glyphicon;
@@ -118,6 +117,7 @@ var SubmitModal = React.createClass({
     var form = this.refs.form.getDOMNode();
     var data = serialize(form, {hash: true});
     this.setState({reqInFlight: true})
+    var reqwest = require('reqwest');
     reqwest({
       url: '/post',
       method: 'post',
