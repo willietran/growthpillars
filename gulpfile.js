@@ -3,12 +3,12 @@ var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var watchify = require('watchify');
-var browserify = require('browserify');
 var open = require('gulp-open');
 var sass = require('gulp-sass');
 var del = require('del');
 var path = require('path');
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
 var setupApp = require('./server/app.js');
 
 // Paths
@@ -20,24 +20,32 @@ var jsDestRoot = './public/js'
 // standard LiveReload port
 var liveReloadPort = 35729;
 
-// Browserify
-// TODO(ryanrhee): use webpack instead of browserify to get react-hot-loader
-var bundler = watchify(browserify('./client/scripts/index.js', watchify.args));
-bundler.transform('6to5ify');
-// TODO(ryanrhee): Split out vendor bundle so incremental builds are faster
-bundler.require(['react', 'react-bootstrap']);
-function bundle() {
-  gutil.log('Building browserify bundle');
-  return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('index.js'))
-      .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-      .pipe(sourcemaps.write())
-    .pipe(gulp.dest(jsDestRoot));
-}
-gulp.task('jsclient', bundle);
-bundler.on('update', bundle);
+// Webpack
+gulp.task('jsclient', function(callback) {
+  var hostname = 'localhost';
+  var port = '9090';
+  var config = Object.create(require('./webpack.config.js'))
+  config.debug = true;
+  config.output.publicPath = 'http://'+hostname+':'+port+'/';
+
+  var devServer = new WebpackDevServer(webpack(config), {
+    // server & middleware options
+    stats: {
+      colors: true
+    }
+  });
+  devServer.listen(8080, '127.0.0.1', function(err) {
+    if (err) throw new gutil.PluginError('webpack-dev-server', err);
+
+    // Server listening
+    gutil.log(
+      '[webpack-dev-server]',
+      'http://localhost:9090/webpack-dev-server/index.html'
+    );
+
+    callback();
+  });
+});
 
 // Live Reload
 var tinylr;
