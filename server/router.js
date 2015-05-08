@@ -1,10 +1,16 @@
+/**
+ * @jsx
+ */
+
 var express = require('express')
   , session = require('express-session')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
   , nunjucks = require('nunjucks')
+  , React = require('react')
   , AuthModule = require('./auth')
   , backend = require('./backend')
+  , Post = require('../client/components/Post.react')
 ;
 
 var server = function(err) {
@@ -66,7 +72,19 @@ var server = function(err) {
   });
 
   router.get('/view/:post_id', function(req, res) {
-    res.render('view.html', backend.fake_posts[0]);
+    var postProps = backend.fake_posts[0]; // props for Post component
+    var innerMarkup = {
+      __html: React.renderToString(<Post {...postProps} />)
+    };
+    var html = React.renderToStaticMarkup(
+      <body>
+        <div
+          id={'content'}
+          dangerouslySetInnerHTML={innerMarkup}
+        />
+      </body>
+    );
+    res.end(html);
   });
 
   return router;

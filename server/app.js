@@ -1,3 +1,7 @@
+require('babel/register')({
+  extensions: ['.js'],
+  stage: 1,
+});
 var express = require('express')
   , nunjucks = require('nunjucks')
   , routerAsync = require('./router')

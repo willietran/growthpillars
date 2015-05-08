@@ -73,7 +73,7 @@ var backend = {
 
   _connect: function(callback) {
     // set up mongodb connection
-    uri = 'mongodb://localhost/test';
+    var uri = 'mongodb://localhost/test';
     mongoose.connect(uri);
     var db = mongoose.connection;
     db.on('error', function(error) {
