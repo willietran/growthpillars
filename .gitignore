@@ -60,7 +60,7 @@ target/
 local_settings.py
 
 # .swp file, for vim
-.*.swp
+*.swp
 
 # Wilson's gitignore file
 .DS_Store
