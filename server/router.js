@@ -6,11 +6,12 @@ var express = require('express')
   , session = require('express-session')
   , cookieParser = require('cookie-parser')
   , bodyParser = require('body-parser')
-  , nunjucks = require('nunjucks')
   , React = require('react')
   , AuthModule = require('./auth')
   , backend = require('./backend')
   , Post = require('../client/components/Post.react')
+  , Main = require('../client/components/Main.react')
+  , StaticContainer = require('../client/components/StaticContainer.react')
 ;
 
 var server = function(err) {
@@ -45,12 +46,26 @@ var server = function(err) {
     here before the catch-all route for index.html below.
   */
 
+  // This used to be '*'.
   router.get('/', function(req, res) {
-    // This used to be '*'.
-    //
-    // this route will respond to all requests with the contents of your index
-    // template. Doing this allows react-router to render the view in the app.
-    res.render('base.html', { posts: backend.fake_posts, user: req.user});
+    var props = {
+      posts: backend.fake_posts,
+      user: req.user,
+    };
+    var encodedProps = JSON.stringify(props);
+    var mainAppHTML = React.renderToString(
+      <Main {...props} />
+    );
+    var html = React.renderToStaticMarkup(
+      <StaticContainer>
+        <div
+          id="contents"
+          dangerouslySetInnerHTML={{__html: mainAppHTML}}
+        />
+        <input type="hidden" id="initial-props" value={encodedProps} />
+      </StaticContainer>
+    );
+    res.end('<!DOCTYPE html>\n' + html);
   });
 
   router.post('/post', function(req, res) {
