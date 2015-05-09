@@ -15,7 +15,7 @@ var PostList = React.createClass({
     return (
       <div className="container">
         <div className="page-header">
-          <time className="date" datetime="2014-11-25">
+          <time className="date" dateTime="2014-11-25">
             <h4 className="day-name"></h4>
             <h4 className="day-name">{'TODAY'}</h4>
           </time>
