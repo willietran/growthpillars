@@ -8,7 +8,7 @@ var SubmitButton = require('./SubmitButton.react');
 
 var UserNavItem = React.createClass({
   propTypes: {
-    image_url: React.PropTypes.any,
+    user: React.PropTypes.object,
   },
 
   render: function() {
@@ -22,7 +22,7 @@ var UserNavItem = React.createClass({
               data-toggle="dropdown"
               role="button"
               aria-expanded="false" >
-              <img className="nav-user-img" src={ this.props.image_url }/>
+              <img className="nav-user-img" src={ this.props.user.image_url }/>
               <span className="caret"/>
             </a>
             <ul className="dropdown-menu" role="menu">
