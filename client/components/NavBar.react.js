@@ -4,21 +4,8 @@
 
 var React = require('react');
 
-var UserNavItem = require('./UserNavItem.react');
-var LoggedOutNavItem = require('./LoggedOutNavItem.react');
-
 var NavBar = React.createClass({
-  propTypes: {
-    user: React.PropTypes.object,
-  },
-
   render: function() {
-    var navItem = null;
-    if (this.props.user) {
-      navItem = <UserNavItem {...this.props.user}/>;
-    } else {
-      navItem = <LoggedOutNavItem />;
-    }
     return (
       <nav className="navbar navbar-default" role="navigation">
         <div className="container">
@@ -39,7 +26,7 @@ var NavBar = React.createClass({
               <p className="subheader">{'The best marketing strategies, everyday.'}</p>
             </div>
           </div>
-          {navItem}
+          {this.props.children}
         </div>
       </nav>
     );

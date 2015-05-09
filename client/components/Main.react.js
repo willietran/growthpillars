@@ -5,7 +5,10 @@
 var React = require('react');
 
 var NavBar = require('./NavBar.react');
+var UserNavItem = require('./UserNavItem.react');
+var LoggedOutNavItem = require('./LoggedOutNavItem.react');
 var PostList = require('./PostList.react');
+var PostItem = require('./PostItem.react');
 
 var Main = React.createClass({
   propTypes: {
@@ -14,12 +17,33 @@ var Main = React.createClass({
   },
 
   render: function() {
+    var navItem = null;
+    if (this.props.user) {
+      navItem = <UserNavItem user={this.props.user}/>;
+    } else {
+      navItem = <LoggedOutNavItem />;
+    }
     return (
       <div>
-        <NavBar user={this.props.user} />
-        <PostList posts={this.props.posts} />
+        <NavBar>
+          {navItem}
+        </NavBar>
+        <PostList>
+          {this._renderPostItems()}
+        </PostList>
       </div>
     );
+  },
+
+  _renderPostItems: function() {
+    return this.props.posts.map(function(post) {
+      return (
+        <PostItem
+          key={post.id}
+          {...post}
+        />
+      );
+    });
   }
 });
 
